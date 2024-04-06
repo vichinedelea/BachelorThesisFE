@@ -1,0 +1,61 @@
+body {
+  height: 100vh; /* Ajustați această proprietate */
+  margin: 0;
+  font-style: oblique;
+  font-family: Georgia, serif;
+  color: aliceblue;
+  background-image: url('/public/HomePageImage.png');
+  background-position: center;
+  background-size: cover;
+  backdrop-filter: blur(2px); /* Aplică un efect de estompare de 5px pentru elementul și pentru elementele din spatele acestuia */
+}
+
+.logo-container {
+  position: absolute; /* Poziționați .logo-container absolut în interiorul .homepage-container */
+  top: 50%; /* Plasați .logo-container la 50% înălțimea .homepage-container */
+  left: 50%; /* Plasați .logo-container la 50% lățimea .homepage-container */
+  transform: translate(-50%, -50%); /* Deplasați .logo-container înapoi cu 50% din propria sa lățime și înălțime pentru a-l centra */
+  text-align: center;
+  font-size: larger;
+  font-size: 400%;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 40px; /* Adăugăm un spațiu mic între butoane */
+  margin-left: 40px; /* Adăugăm un spațiu mic între butoane */
+}
+
+.top-buttons {
+  display: flex;
+  justify-content: space-between; /* Plasează butoanele pe marginile laterale ale containerului */
+}
+
+.top-left-buttons {
+  display: flex; /* Utilizăm flexbox pentru a alinia butoanele pe axa orizontală */
+}
+
+.top-left-buttons button{
+  margin-right: 40px; /* Adăugăm un spațiu mic între butoane */
+  margin-left: 40px; /* Adăugăm un spațiu mic între butoane */
+}
+
+.top-right-buttons {
+  display: flex; /* Utilizăm flexbox pentru a alinia butoanele pe axa orizontală */
+}
+
+.top-right-buttons button {
+  margin-left: 40px; /* Adăugăm un spațiu mic între butoane */
+  margin-right: 40px; /* Adăugăm un spațiu mic între butoane */
+}
+
+.button {
+  font-style: oblique;
+  font-family: Georgia, serif;
+  color: rgb(1, 7, 13);
+  border: none; /* Elimină orice contur sau bordură a butonului */
+  background-color: transparent; /* Face fundalul butonului transparent */
+  padding: 0; /* Elimină orice padding interior al butonului */
+}

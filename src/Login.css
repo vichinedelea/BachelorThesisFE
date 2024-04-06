@@ -1,0 +1,5 @@
+.bg-image {
+    background-image: url('/public/HomePageImage.png'); /* Asigurați-vă că specificați calea corectă către imagine */
+    background-size: cover; /* Asigurați-vă că imaginea se întinde pentru a acoperi întregul div */
+    background-position: center; /* Centrarea imaginii de fundal */
+}
