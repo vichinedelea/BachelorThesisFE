@@ -59,3 +59,11 @@ body {
   background-color: transparent; /* Face fundalul butonului transparent */
   padding: 0; /* Elimină orice padding interior al butonului */
 }
+
+.top-left-buttons p {
+  margin-right: 10px; /* Adăugă un spațiu de 10 pixeli între butoane */
+}
+
+.top-right-buttons p {
+  margin-right: 10px; /* Adăugă un spațiu de 10 pixeli între butoane */
+}

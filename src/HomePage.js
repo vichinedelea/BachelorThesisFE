@@ -17,9 +17,9 @@ function HomePage() {
         <p><Link to="/logIn" className="button black"> RESERVATION </Link></p>
       </div>
       <div className="top-right-buttons">
-        <p><button onClick={() => document.getElementById('NEW & EVENTS').style.display='block'} className="button black">NEW & EVENTS</button></p>
-        <p><button onClick={() => document.getElementById('GALLERY').style.display='block'} className="button black">GALLERY</button></p>
-        <p><button to="/logIn" onClick={() => document.getElementById('CONTACT').style.display='block'} className="button black">CONTACT</button></p>
+        <p><Link to="/newsAndEvents" className="button black"> NEWS AND EVENTS </Link></p>
+        <p><Link to="/gallery" className="button black"> GALLERY </Link></p>
+        <p><Link to="/contact" className="button black"> CONTACT </Link></p>
       </div>
       </div>
       <div className="bottom-right">

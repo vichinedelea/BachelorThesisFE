@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BackToHomePageButton from './BackToHomePageButton';
 
 const Reservation = () => {
   const [hour, setHour] = useState('');
@@ -135,6 +136,7 @@ const Reservation = () => {
           </div>
         )}
       </div>
+      < BackToHomePageButton/>
     </div>
   );
 };

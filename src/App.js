@@ -6,6 +6,9 @@ import SignUp from './SignUp';
 import Reservation from './Reservation'; 
 import AboutUs from './AboutUs';
 import LocalShop from './LocalShop';
+import Contact from './Contact';
+import NewsAndEvents from './NewsAndEvents';
+import Gallery from './Gallery';
 
 function App() {
   return (
@@ -17,6 +20,10 @@ function App() {
         <Route path='/reservation' element={<Reservation />}></Route>
         <Route path='/aboutUs' element={<AboutUs />}></Route>
         <Route path='/localShop' element={<LocalShop />}></Route>
+
+        <Route path='/newsAndEvents' element={<NewsAndEvents />}></Route>
+        <Route path='/gallery' element={<Gallery />}></Route>
+        <Route path='/contact' element={<Contact />}></Route>
       </Routes>
     </BrowserRouter>
   );

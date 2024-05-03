@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BackToHomePageButton from './BackToHomePageButton';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -68,6 +69,7 @@ const Login = () => {
             Create Account
           </Link>
         </form>
+        < BackToHomePageButton/>
       </div>
     </div>
   );
