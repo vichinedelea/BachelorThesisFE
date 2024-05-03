@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [userName, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isPending, setIsPending] = useState(false); // Change 'false' to false
+  const [isPending, setIsPending] = useState(false);
+  const navigate = useNavigate(); // Create an instance of navigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ const SignUp = () => {
       console.log('new user added');
       console.log(user);
       setIsPending(false);
+      navigate('/reservation'); // Redirect to next page on successful sign-up
     }).catch((error) => {
       console.error('Error adding user:', error);
       setIsPending(false);
@@ -33,9 +35,7 @@ const SignUp = () => {
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="nameInput">
-              <strong>Name</strong>
-            </label>
+            <label htmlFor="nameInput"><strong>Name</strong></label>
             <input
               type="text"
               id="nameInput"
@@ -47,9 +47,7 @@ const SignUp = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="emailInput">
-              <strong>Email</strong>
-            </label>
+            <label htmlFor="emailInput"><strong>Email</strong></label>
             <input
               type="email"
               id="emailInput"
@@ -61,9 +59,7 @@ const SignUp = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="passwordInput">
-              <strong>Password</strong>
-            </label>
+            <label htmlFor="passwordInput"><strong>Password</strong></label>
             <input
               type="password"
               id="passwordInput"
@@ -74,23 +70,14 @@ const SignUp = () => {
               className="form-control rounded-0"
             />
           </div>
-          {!isPending && <button
-            type="submit"
-            className="btn btn-success w-100 rounded-0"
-          >
+          {!isPending && <button type="submit" className="btn btn-success w-100 rounded-0">
             Sign up
           </button>}
-          {isPending && <button disabled
-            type="button"
-            className="btn btn-success w-100 rounded-0"
-          >
-            Adding
+          {isPending && <button disabled type="button" className="btn btn-success w-100 rounded-0">
+            Adding...
           </button>}
           <p>You agree to our terms and policies</p>
-          <Link
-            to="/logIn"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
-          >
+          <Link to="/logIn" className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">
             Log in
           </Link>
         </form>
