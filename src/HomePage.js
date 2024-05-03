@@ -12,9 +12,9 @@ function HomePage() {
       </div>
       <div className="top-buttons">
       <div className="top-left-buttons">
-        <p><button onClick={() => document.getElementById('ABOUT AS').style.display='block'} className="button black">ABOUT AS</button></p>
-        <p><button onClick={() => document.getElementById('LOCAL SHOP').style.display='block'} className="button black">LOCAL SHOP</button></p>
-        <p><Link to="/logIn" className="button black">RESERVATION</Link></p>
+        <p><Link to="/aboutUs" className="button black"> ABOUT US </Link></p>
+        <p><Link to="/localShop" className="button black">LOCAL SHOP</Link></p>
+        <p><Link to="/logIn" className="button black"> RESERVATION </Link></p>
       </div>
       <div className="top-right-buttons">
         <p><button onClick={() => document.getElementById('NEW & EVENTS').style.display='block'} className="button black">NEW & EVENTS</button></p>
