@@ -1,142 +1,127 @@
-import React, { useState } from 'react';
-import BackToHomePageButton from './BackToHomePageButton';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Reservation = () => {
-  const [hour, setHour] = useState('');
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
-  const [activity, setActivity] = useState('');
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  const [submittedData, setSubmittedData] = useState(null); // State to store submitted data
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  const [year, setYear] = useState(2026);
+  const [month, setMonth] = useState(1);
+  const [day, setDay] = useState(1);
+  const [hour, setHour] = useState(10);
+  const [people, setPeople] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  // 🔐 protecție
+  useEffect(() => {
+    if (!token) {
+      navigate("/logIn");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsPending(true);
-    setError(null);
+    setLoading(true);
 
-    const reservationData = {
-      hour: parseInt(hour),
-      day: parseInt(day),
-      month: parseInt(month),
-      year: parseInt(year),
-      activity: activity
+    const reservation = {
+      reservationDate: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
+      reservationHour: hour,
+      people: people
     };
 
     try {
-      const response = await fetch("https://localhost:7277/addReservation", {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reservationData)
-      });
-      console.log(reservationData);
+      const response = await fetch(
+        "https://localhost:7277/api/Reservations/addReservation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(reservation)
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error('Failed to add reservation');
-      }
+      if (!response.ok)
+        throw new Error("Reservation failed");
 
-      console.log('Reservation added');
-      console.log(reservationData);
-      setSubmittedData(reservationData); // Store submitted data
-      setIsPending(false);
-      // Handle successful reservation, maybe redirect or show a success message
-    } catch (error) {
-      console.error('Error adding reservation:', error);
-      setError('Failed to add reservation');
-      setIsPending(false);
+      navigate("/myReservations");
+    } catch (err) {
+      alert("Eroare la creare rezervare");
+    } finally {
+      setLoading(false);
     }
-  }; 
+  };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-image vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Reservation</h2>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="bg-white p-4 rounded w-25">
+        <h2 className="mb-3">Creează rezervare</h2>
+
         <form onSubmit={handleSubmit}>
-          {/* Input fields for hour, day, month, year, and activity */}
-          {/* Error message if there is an error */}
-          {/* Button to submit the form */}
-          <div className="mb-3">
-            <label htmlFor="hourInput"><strong>Hour</strong></label>
-            <input
-              type="text"
-              id="hourInput"
-              value={hour}
-              onChange={(e) => setHour(e.target.value)}
-              placeholder="Enter Hour"
-              className="form-control rounded-0"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="dayInput"><strong>Day</strong></label>
-            <input
-              type="text"
-              id="dayInput"
-              value={day}
-              onChange={(e) => setDay(e.target.value)}
-              placeholder="Enter Day"
-              className="form-control rounded-0"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="monthInput"><strong>Month</strong></label>
-            <input
-              type="text"
-              id="monthInput"
-              value={month}
-              onChange={(e) => setMonth(e.target.value)}
-              placeholder="Enter Month"
-              className="form-control rounded-0"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="yearInput"><strong>Year</strong></label>
-            <input
-              type="text"
-              id="yearInput"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              placeholder="Enter Year"
-              className="form-control rounded-0"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="activityInput"><strong>Activity</strong></label>
-            <input
-              type="text"
-              id="activityInput"
-              value={activity}
-              onChange={(e) => setActivity(e.target.value)}
-              placeholder="Enter Activity"
-              className="form-control rounded-0"
-            />
-          </div>
-          {/* Display error message if exists */}
-          {error && <p className="text-danger">{error}</p>}
-          {!isPending && (
-            <button type="submit" className="btn btn-success w-100 rounded-0">
-              Submit Reservation
-            </button>
-          )}
-          {isPending && (
-            <button type="button" className="btn btn-success w-100 rounded-0" disabled>
-              Submitting...
-            </button>
-          )}
+          {/* YEAR */}
+          <select
+            className="form-control mb-2"
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+          >
+            <option value={2026}>2026</option>
+            <option value={2027}>2027</option>
+          </select>
+
+          {/* MONTH */}
+          <select
+            className="form-control mb-2"
+            value={month}
+            onChange={(e) => setMonth(Number(e.target.value))}
+          >
+            {Array.from({ length: 12 }, (_, i) => i + 1).map(m => (
+              <option key={m} value={m}>Luna {m}</option>
+            ))}
+          </select>
+
+          {/* DAY */}
+          <select
+            className="form-control mb-2"
+            value={day}
+            onChange={(e) => setDay(Number(e.target.value))}
+          >
+            {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
+              <option key={d} value={d}>Ziua {d}</option>
+            ))}
+          </select>
+
+          {/* HOUR */}
+          <select
+            className="form-control mb-2"
+            value={hour}
+            onChange={(e) => setHour(Number(e.target.value))}
+          >
+            {Array.from({ length: 7 }, (_, i) => i + 10).map(h => (
+              <option key={h} value={h}>{h}:00</option>
+            ))}
+          </select>
+
+          {/* PEOPLE */}
+          <select
+            className="form-control mb-3"
+            value={people}
+            onChange={(e) => setPeople(Number(e.target.value))}
+          >
+            {Array.from({ length: 20 }, (_, i) => i + 1).map(p => (
+              <option key={p} value={p}>{p} persoane</option>
+            ))}
+          </select>
+
+          <button
+            type="submit"
+            className="btn btn-success w-100"
+            disabled={loading}
+          >
+            {loading ? "Se salvează..." : "Confirmă rezervarea"}
+          </button>
         </form>
-        {/* Display submitted data */}
-        {submittedData && (
-          <div className="mt-3">
-            <h3>Submitted Data:</h3>
-            <p>Hour: {submittedData.hour}</p>
-            <p>Day: {submittedData.day}</p>
-            <p>Month: {submittedData.month}</p>
-            <p>Year: {submittedData.year}</p>
-            <p>Activity: {submittedData.activity}</p>
-          </div>
-        )}
       </div>
-      < BackToHomePageButton/>
     </div>
   );
 };
