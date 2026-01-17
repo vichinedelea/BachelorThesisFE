@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import BackToMyReservationsButton from "./BackToMyReservationsButton";
 import "./Reservation.css";
 
 const Reservation = () => {
@@ -13,7 +14,7 @@ const Reservation = () => {
   const [people, setPeople] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  // 🔐 protecție
+  // 🔐 protecție – dacă nu e logat
   useEffect(() => {
     if (!token) {
       navigate("/logIn");
@@ -45,6 +46,7 @@ const Reservation = () => {
 
       if (!response.ok) throw new Error("Reservation failed");
 
+      // 🔁 înapoi la lista de rezervări
       navigate("/myReservations");
     } catch (err) {
       alert("Eroare la creare rezervare");
@@ -68,28 +70,36 @@ const Reservation = () => {
           {/* MONTH */}
           <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
             {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
-              <option key={m} value={m}>Luna {m}</option>
+              <option key={m} value={m}>
+                Luna {m}
+              </option>
             ))}
           </select>
 
           {/* DAY */}
           <select value={day} onChange={(e) => setDay(Number(e.target.value))}>
             {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => (
-              <option key={d} value={d}>Ziua {d}</option>
+              <option key={d} value={d}>
+                Ziua {d}
+              </option>
             ))}
           </select>
 
           {/* HOUR */}
           <select value={hour} onChange={(e) => setHour(Number(e.target.value))}>
             {Array.from({ length: 7 }, (_, i) => i + 10).map((h) => (
-              <option key={h} value={h}>{h}:00</option>
+              <option key={h} value={h}>
+                {h}:00
+              </option>
             ))}
           </select>
 
           {/* PEOPLE */}
           <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
             {Array.from({ length: 20 }, (_, i) => i + 1).map((p) => (
-              <option key={p} value={p}>{p} persoane</option>
+              <option key={p} value={p}>
+                {p} persoane
+              </option>
             ))}
           </select>
 
@@ -98,6 +108,9 @@ const Reservation = () => {
           </button>
         </form>
       </div>
+
+      {/* 🔙 BUTON JOS – fără logout */}
+      <BackToMyReservationsButton />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackToHomePageButton from "./BackToHomePageButton";
 import "./MyReservations.css";
 
 const MyReservations = () => {
@@ -47,6 +48,11 @@ const MyReservations = () => {
     setReservations((prev) => prev.filter((r) => r.id !== id));
   };
 
+  // 🔐 LOGOUT + BACK HOME
+  const handleBackHome = () => {
+    localStorage.removeItem("token");
+  };
+
   if (loading) {
     return <p className="loading-text">Loading reservations...</p>;
   }
@@ -56,6 +62,7 @@ const MyReservations = () => {
       <div className="reservations-card">
         <div className="reservations-header">
           <h2>My Reservations</h2>
+
           <button
             className="primary-btn"
             onClick={() => navigate("/reservation")}
@@ -70,15 +77,12 @@ const MyReservations = () => {
           <div className="reservations-list">
             {reservations.map((r) => {
               const date = new Date(r.reservationDate);
-              const day = date.getDate();
-              const month = date.getMonth() + 1;
-              const year = date.getFullYear();
 
               return (
                 <div key={r.id} className="reservation-item">
                   <div>
                     <strong>
-                      {day}.{month}.{year}
+                      {date.getDate()}.{date.getMonth() + 1}.{date.getFullYear()}
                     </strong>{" "}
                     – {r.reservationHour}:00
                     <br />
@@ -96,6 +100,11 @@ const MyReservations = () => {
             })}
           </div>
         )}
+
+        {/* 🔽 BUTON JOS – IDENTIC CU RESTUL APLICAȚIEI */}
+        <div onClick={handleBackHome} className="back-home-wrapper">
+          <BackToHomePageButton />
+        </div>
       </div>
     </div>
   );
