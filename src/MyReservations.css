@@ -1,0 +1,92 @@
+/* FUNDAL COMUN */
+.bg-image {
+  min-height: 100vh;
+  background-image: url('/public/ReservationImage.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.reservations-card {
+  background: rgba(255, 248, 235, 0.96);
+  padding: 32px;
+  border-radius: 18px;
+  width: 520px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* HEADER */
+.reservations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.reservations-header h2 {
+  font-family: 'Playfair Display', serif;
+  color: #5a3e2b;
+  margin: 0;
+}
+
+/* BUTON PRINCIPAL */
+.primary-btn {
+  background: #7a3e1d;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.primary-btn:hover {
+  background: #5f2f16;
+}
+
+/* LISTĂ */
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reservation-item {
+  background: #fffaf3;
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* DELETE */
+.delete-btn {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.delete-btn:hover {
+  background: #a93226;
+}
+
+/* TEXTE */
+.empty-text {
+  text-align: center;
+  color: #6b4a33;
+}
+
+.loading-text {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+}

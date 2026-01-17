@@ -1,6 +1,13 @@
 .gallery {
     text-align: center;
-    margin-top: 20px;
+
+    background-color: #efe3cf;
+    min-height: 100vh;
+}
+
+.gallery h1 {
+    font-family: inherit; /* preia fontul de la body, la fel ca butonul */
+    color: #541b08; 
 }
 
 .image-grid {

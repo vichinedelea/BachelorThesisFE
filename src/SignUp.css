@@ -1,4 +1,4 @@
-/* FUNDAL */
+/* FUNDAL COMUN LOGIN / SIGNUP */
 .bg-image {
   height: 100vh;
   background-image: url('/public/LogImage.png');
@@ -9,34 +9,43 @@
   align-items: center;
 }
 
-/* POZIȚIONARE CARD */
-.login-wrapper {
+/* WRAPPER */
+.auth-wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* CARD LOGIN */
-.login-card {
+/* CARD */
+.auth-card {
   background: rgba(255, 248, 235, 0.95);
-  padding: 30px;
+  padding: 32px;
   border-radius: 16px;
-  width: 340px;
+  width: 360px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.25);
   text-align: center;
 }
 
+/* TITLU */
+.auth-card h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+  color: #5a3e2b;
+}
+
 /* INPUTURI */
-.login-card input {
+.auth-card input {
   width: 100%;
   padding: 12px;
   margin-bottom: 14px;
   border-radius: 10px;
   border: 1px solid #d6c2a8;
   font-size: 14px;
+  background: #fffaf3;
 }
 
 /* BUTON */
-.login-card button {
+.auth-card button {
   width: 100%;
   padding: 12px;
   border-radius: 20px;
@@ -45,16 +54,18 @@
   color: white;
   font-size: 15px;
   cursor: pointer;
+  margin-top: 6px;
 }
 
-.login-card button:disabled {
+.auth-card button:disabled {
   background: #b28a6b;
 }
 
 /* LINK */
-.signup-link {
+.switch-link {
   display: block;
-  margin-top: 12px;
+  margin-top: 14px;
   color: #7a3e1d;
   text-decoration: none;
+  font-size: 14px;
 }

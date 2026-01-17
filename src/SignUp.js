@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BackToHomePageButton from "./BackToHomePageButton";
+import "./SignUp.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -14,38 +15,33 @@ const SignUp = () => {
     setIsPending(true);
 
     try {
-      // 1️⃣ REGISTER
+      // REGISTER
       const registerResponse = await fetch(
         "https://localhost:7277/api/Users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password })
+          body: JSON.stringify({ name, email, password }),
         }
       );
 
-      if (!registerResponse.ok)
-        throw new Error("Register failed");
+      if (!registerResponse.ok) throw new Error("Register failed");
 
-      // 2️⃣ LOGIN AUTOMAT
+      // LOGIN AUTOMAT
       const loginResponse = await fetch(
         "https://localhost:7277/api/Users/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email, password }),
         }
       );
 
-      if (!loginResponse.ok)
-        throw new Error("Login failed");
+      if (!loginResponse.ok) throw new Error("Login failed");
 
       const data = await loginResponse.json();
-
-      // 3️⃣ SALVARE TOKEN
       localStorage.setItem("token", data.token);
 
-      // 4️⃣ REDIRECT
       navigate("/myReservations");
     } catch (err) {
       alert("Sign up failed");
@@ -55,50 +51,44 @@ const SignUp = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Sign Up</h2>
+    <div className="bg-image">
+      <div className="auth-wrapper">
+        <div className="auth-card">
+          <h2>Create Account</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            className="form-control mb-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-          <input
-            type="email"
-            placeholder="Email"
-            className="form-control mb-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="form-control mb-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <button
-            type="submit"
-            className="btn btn-success w-100"
-            disabled={isPending}
-            onClick={() => console.log("BUTTON CLICKED")}
-          >
-            {isPending ? "Logging in..." : "Login"}
-          </button>
-        </form>
+            <button type="submit" disabled={isPending}>
+              {isPending ? "Creating account..." : "Sign Up"}
+            </button>
+          </form>
 
-        <Link to="/logIn" className="btn btn-light w-100 mt-2">
-          Already have an account
-        </Link>
+          <Link to="/logIn" className="switch-link">
+            Already have an account?
+          </Link>
 
-        <BackToHomePageButton />
+          <BackToHomePageButton />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,54 @@
+/* FUNDAL COMUN (LOGIN / SIGNUP / RESERVATION / MYRES) */
 .bg-image {
-    background-image: url('/public/HomePageImage.png'); /* Asigurați-vă că specificați calea corectă către imagine */
-    background-size: cover; /* Asigurați-vă că imaginea se întinde pentru a acoperi întregul div */
-    background-position: center; /* Centrarea imaginii de fundal */
+  min-height: 100vh;
+  background-image: url('/public/ReservationImage.png'); /* imaginea cu animale jos */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.reservation-card {
+  background: rgba(255, 248, 235, 0.96);
+  padding: 34px;
+  border-radius: 18px;
+  width: 380px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+/* TITLU */
+.reservation-card h2 {
+  font-family: 'Playfair Display', serif;
+  color: #5a3e2b;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* SELECTURI */
+.reservation-card select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #d6c2a8;
+  background: #fffaf3;
+  font-size: 14px;
+}
+
+/* BUTON */
+.reservation-card button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 22px;
+  border: none;
+  background: #7a3e1d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.reservation-card button:disabled {
+  background: #b28a6b;
 }

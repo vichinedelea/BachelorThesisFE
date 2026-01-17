@@ -1,0 +1,21 @@
+.page-container {
+    min-height: 100vh;
+    width: 100vw;
+
+    background-image: url("/public/HomePageImage.png"); /* sau altă imagine */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Conținutul alb peste imagine */
+.text {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 700px;
+}

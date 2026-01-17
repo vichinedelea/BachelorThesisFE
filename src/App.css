@@ -1,33 +1,58 @@
-.App {
-  text-align: center;
+/* RESET GLOBAL */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+/* CONTAINER PRINCIPAL APP */
+.App {
+  min-height: 100vh;
+  width: 100vw;
+
+  background-image: url("/public/HomePageImage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER (fără fundal care să acopere imaginea) */
+.App-header {
+  background: transparent;
+  min-height: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* LOGO (dacă îl mai folosești) */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+/* ANIMAȚIE LOGO */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
+/* LINK */
 .App-link {
   color: #61dafb;
 }
 
+/* KEYFRAMES */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

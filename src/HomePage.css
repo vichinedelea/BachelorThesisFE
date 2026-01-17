@@ -1,69 +1,111 @@
 body {
-  height: 100vh; /* Ajustați această proprietate */
   margin: 0;
-  font-style: oblique;
-  font-family: Georgia, serif;
-  color: aliceblue;
+  font-family: 'Inter', sans-serif;
+}
+
+/* HERO */
+.bgimg {
+  position: relative;
+  height: 100vh;
   background-image: url('/public/HomePageImage.png');
-  background-position: center;
   background-size: cover;
-  backdrop-filter: blur(2px); /* Aplică un efect de estompare de 5px pentru elementul și pentru elementele din spatele acestuia */
+  background-position: center;
+  color: #fff;
 }
 
+/* OVERLAY CALD */
+.bgimg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(90, 55, 30, 0.45),
+    rgba(90, 55, 30, 0.25)
+  );
+  z-index: 1;
+}
+
+.bgimg > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* NAVBAR */
+.top-buttons {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.top-left-buttons,
+.top-right-buttons {
+  display: flex;
+  gap: 14px;
+}
+
+/* BUTOANE SUS */
+.button {
+  padding: 8px 18px;
+  background: #f3e6d6;
+  color: #6b3f22;
+  border-radius: 20px;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  border: none;
+  transition: all 0.25s ease;
+}
+
+.button:hover {
+  background: #e7d2b8;
+}
+
+/* TITLU CENTRAL */
 .logo-container {
-  position: absolute; /* Poziționați .logo-container absolut în interiorul .homepage-container */
-  top: 50%; /* Plasați .logo-container la 50% înălțimea .homepage-container */
-  left: 50%; /* Plasați .logo-container la 50% lățimea .homepage-container */
-  transform: translate(-50%, -50%); /* Deplasați .logo-container înapoi cu 50% din propria sa lățime și înălțime pentru a-l centra */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  font-size: larger;
-  font-size: 400%;
 }
 
+.logo-container p {
+  font-family: 'Playfair Display', serif;
+  font-size: 54px;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.35);
+}
+
+/* CTA */
+.hero-btn {
+  margin-top: 24px;
+  display: inline-block;
+  padding: 12px 32px;
+  background: #7a3e1d;
+  color: #fff;
+  border-radius: 28px;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #5f2f16;
+  transform: translateY(-1px);
+}
+
+/* INFO JOS */
 .bottom-right {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-right: 40px; /* Adăugăm un spațiu mic între butoane */
-  margin-left: 40px; /* Adăugăm un spațiu mic între butoane */
-}
-
-.top-buttons {
-  display: flex;
-  justify-content: space-between; /* Plasează butoanele pe marginile laterale ale containerului */
-}
-
-.top-left-buttons {
-  display: flex; /* Utilizăm flexbox pentru a alinia butoanele pe axa orizontală */
-}
-
-.top-left-buttons button{
-  margin-right: 40px; /* Adăugăm un spațiu mic între butoane */
-  margin-left: 40px; /* Adăugăm un spațiu mic între butoane */
-}
-
-.top-right-buttons {
-  display: flex; /* Utilizăm flexbox pentru a alinia butoanele pe axa orizontală */
-}
-
-.top-right-buttons button {
-  margin-left: 40px; /* Adăugăm un spațiu mic între butoane */
-  margin-right: 40px; /* Adăugăm un spațiu mic între butoane */
-}
-
-.button {
-  font-style: oblique;
-  font-family: Georgia, serif;
-  color: rgb(1, 7, 13);
-  border: none; /* Elimină orice contur sau bordură a butonului */
-  background-color: transparent; /* Face fundalul butonului transparent */
-  padding: 0; /* Elimină orice padding interior al butonului */
-}
-
-.top-left-buttons p {
-  margin-right: 10px; /* Adăugă un spațiu de 10 pixeli între butoane */
-}
-
-.top-right-buttons p {
-  margin-right: 10px; /* Adăugă un spațiu de 10 pixeli între butoane */
+  bottom: 20px;
+  right: 30px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  text-align: right;
 }
