@@ -8,10 +8,23 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
+
   const navigate = useNavigate();
+
+  // ✅ VALIDARE REALĂ
+  const isFormValid =
+    name.trim() !== "" &&
+    email.trim() !== "" &&
+    password.trim() !== "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ❌ NU PLEACĂ NICIUN REQUEST
+    if (!isFormValid) {
+      return;
+    }
+
     setIsPending(true);
 
     try {
@@ -21,11 +34,17 @@ const SignUp = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({
+            name: name.trim(),
+            email: email.trim(),
+            password: password.trim(),
+          }),
         }
       );
 
-      if (!registerResponse.ok) throw new Error("Register failed");
+      if (!registerResponse.ok) {
+        throw new Error("Register failed");
+      }
 
       // LOGIN AUTOMAT
       const loginResponse = await fetch(
@@ -33,11 +52,16 @@ const SignUp = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({
+            email: email.trim(),
+            password: password.trim(),
+          }),
         }
       );
 
-      if (!loginResponse.ok) throw new Error("Login failed");
+      if (!loginResponse.ok) {
+        throw new Error("Login failed");
+      }
 
       const data = await loginResponse.json();
       localStorage.setItem("token", data.token);
@@ -78,7 +102,10 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button type="submit" disabled={isPending}>
+            <button
+              type="submit"
+              disabled={isPending || !isFormValid}
+            >
               {isPending ? "Creating account..." : "Sign Up"}
             </button>
           </form>

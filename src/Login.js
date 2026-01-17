@@ -7,10 +7,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
+
   const navigate = useNavigate();
+
+  const isFormValid = email.trim() !== "" && password.trim() !== "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ❌ OPREȘTE ORICE
+    if (!isFormValid) {
+      return;
+    }
+
     setIsPending(true);
 
     try {
@@ -19,19 +28,24 @@ const Login = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({
+            email: email.trim(),
+            password: password.trim(),
+          }),
         }
       );
 
-      if (!response.ok) throw new Error("Login failed");
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
 
       const data = await response.json();
       localStorage.setItem("token", data.token);
 
-      setIsPending(false);
       navigate("/myReservations");
-    } catch (err) {
+    } catch (error) {
       alert("Login failed");
+    } finally {
       setIsPending(false);
     }
   };
@@ -57,7 +71,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button type="submit" disabled={isPending}>
+            <button
+              type="submit"
+              disabled={isPending || !isFormValid}
+            >
               {isPending ? "Logging in..." : "Login"}
             </button>
           </form>
