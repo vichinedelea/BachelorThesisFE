@@ -12,7 +12,6 @@
     align-items: center;
 }
 
-/* Conținutul alb peste imagine */
 .text {
     background: rgba(255, 255, 255, 0.85);
     padding: 30px;

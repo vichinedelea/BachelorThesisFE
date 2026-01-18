@@ -20,11 +20,9 @@ function App() {
         <Route path='/logIn' element={<Login />} />
         <Route path='/signUp' element={<SignUp />} />
 
-        {/* 🔐 USER FLOW */}
         <Route path='/myReservations' element={<MyReservations />} />
         <Route path='/reservation' element={<Reservation />} />
 
-        {/* 🔽 RESTUL PAGINILOR */}
         <Route path='/aboutUs' element={<AboutUs />} />
         <Route path='/localShop' element={<LocalShop />} />
         <Route path='/newsAndEvents' element={<NewsAndEvents />} />

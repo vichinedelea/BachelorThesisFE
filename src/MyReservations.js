@@ -48,7 +48,6 @@ const MyReservations = () => {
     setReservations((prev) => prev.filter((r) => r.id !== id));
   };
 
-  // 🔐 LOGOUT + BACK HOME
   const handleBackHome = () => {
     localStorage.removeItem("token");
   };
@@ -101,7 +100,6 @@ const MyReservations = () => {
           </div>
         )}
 
-        {/* 🔽 BUTON JOS – IDENTIC CU RESTUL APLICAȚIEI */}
         <div onClick={handleBackHome} className="back-home-wrapper">
           <BackToHomePageButton />
         </div>

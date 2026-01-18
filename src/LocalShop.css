@@ -17,16 +17,13 @@
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Crează o grilă cu coloane de 300px sau mai mari, care se extind pentru a umple spațiul disponibil */
     gap: 20px;
-    /* Adaugă un spațiu între elementele din grilă */
 }
 
 .product-item {
     display: flex;
     justify-content: space-between;
     width: 700px;
-    /* Ajustează lățimea după nevoie */
     margin-bottom: 40px;
 }
 

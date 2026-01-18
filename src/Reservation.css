@@ -1,4 +1,3 @@
-/* FUNDAL COMUN (LOGIN / SIGNUP / RESERVATION / MYRES) */
 .bg-image {
   min-height: 100vh;
   background-image: url('/public/ReservationImage.png'); /* imaginea cu animale jos */
@@ -9,7 +8,6 @@
   align-items: center;
 }
 
-/* CARD */
 .reservation-card {
   background: rgba(255, 248, 235, 0.96);
   padding: 34px;
@@ -18,7 +16,6 @@
   box-shadow: 0 15px 40px rgba(0,0,0,0.25);
 }
 
-/* TITLU */
 .reservation-card h2 {
   font-family: 'Playfair Display', serif;
   color: #5a3e2b;
@@ -26,7 +23,6 @@
   margin-bottom: 20px;
 }
 
-/* SELECTURI */
 .reservation-card select {
   width: 100%;
   padding: 12px;
@@ -37,7 +33,6 @@
   font-size: 14px;
 }
 
-/* BUTON */
 .reservation-card button {
   width: 100%;
   padding: 12px;

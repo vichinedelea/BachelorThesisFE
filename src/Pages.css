@@ -1,12 +1,12 @@
 .bg-image {
-    background-image: url('/public/HomePageImage.png'); /* Asigurați-vă că specificați calea corectă către imagine */
-    background-size: cover; /* Asigurați-vă că imaginea se întinde pentru a acoperi întregul div */
-    background-position: center; /* Centrarea imaginii de fundal */
+    background-image: url('/public/HomePageImage.png'); 
+    background-size: cover; 
+    background-position: center;
 }
 
 .text {
-    text-align: center; /* Aliniază textul pe centru */
-    margin: 0 auto; /* Centrează conținutul pe axa orizontală */
-    max-width: 600px; /* Opțional: specifică o lățime maximă pentru conținut */
-    padding: 20px; /* Opțional: adaugă un spațiu între conținut și margini */
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 20px;
 }

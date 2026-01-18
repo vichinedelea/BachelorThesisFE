@@ -25,12 +25,19 @@ const Reservation = () => {
   const [availableDays, setAvailableDays] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
 
-  // 🔐 redirect dacă nu e logat
+  useEffect(() => {
+    setYear("");
+    setMonth("");
+    setDay("");
+    setHour("");
+    setAvailableDays([]);
+    setAvailableHours([]);
+  }, []);
+
   useEffect(() => {
     if (!token) navigate("/logIn");
   }, [navigate, token]);
 
-  // 🔁 resetări
   useEffect(() => {
     setMonth("");
     setDay("");
@@ -51,7 +58,6 @@ const Reservation = () => {
     setAvailableHours([]);
   }, [day]);
 
-  // 🔥 FETCH ZILE DISPONIBILE (BACKEND)
   useEffect(() => {
     if (!year || !month) return;
 
@@ -60,18 +66,13 @@ const Reservation = () => {
         const response = await fetch(
           `https://localhost:7277/api/Reservations/availability/${year}/${month}/days`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
 
-        if (!response.ok) {
-          setAvailableDays([]);
-          return;
-        }
+        if (!response.ok) return setAvailableDays([]);
 
-        const data = await response.json(); // List<int>
+        const data = await response.json();
         setAvailableDays(data);
       } catch {
         setAvailableDays([]);
@@ -81,7 +82,6 @@ const Reservation = () => {
     fetchAvailableDays();
   }, [year, month, token]);
 
-  // 🔥 FETCH ORE DISPONIBILE (BACKEND)
   useEffect(() => {
     if (!year || !month || !day) return;
 
@@ -90,16 +90,11 @@ const Reservation = () => {
         const response = await fetch(
           `https://localhost:7277/api/Reservations/availability/${year}/${month}/${day}/hours`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
 
-        if (!response.ok) {
-          setAvailableHours([]);
-          return;
-        }
+        if (!response.ok) return setAvailableHours([]);
 
         const data = await response.json();
         setAvailableHours(data.map(x => x.hour));
@@ -160,56 +155,38 @@ const Reservation = () => {
           </select>
 
           {/* MONTH */}
-          <select
-            value={month}
-            disabled={!year}
-            onChange={(e) => setMonth(Number(e.target.value))}
-          >
+          <select value={month} disabled={!year} onChange={(e) => setMonth(Number(e.target.value))}>
             <option value="">Select month</option>
             {monthNames.map((m, i) => (
               <option key={i} value={i + 1}>{m}</option>
             ))}
           </select>
 
-          {/* DAY – FĂRĂ WEEKEND + WEEKDAY ÎN PARANTEZĂ */}
-          <select
-            value={day}
-            disabled={!month || availableDays.length === 0}
-            onChange={(e) => setDay(Number(e.target.value))}
-          >
+          {/* DAY (fără weekend) */}
+          <select value={day} disabled={!month || !availableDays.length}
+            onChange={(e) => setDay(Number(e.target.value))}>
             <option value="">Select day</option>
 
             {availableDays
               .filter(d => {
-                const date = new Date(year, month - 1, d);
-                const dow = date.getDay();
-                return dow !== 0 && dow !== 6; // ❌ fără weekend
+                const dow = new Date(year, month - 1, d).getDay();
+                return dow !== 0 && dow !== 6;
               })
               .map(d => {
                 const date = new Date(year, month - 1, d);
-                const dayName = date.toLocaleString("en-US", { weekday: "long" });
-
                 return (
                   <option key={d} value={d}>
-                    {d} ({dayName})
+                    {d} ({date.toLocaleString("en-US", { weekday: "long" })})
                   </option>
                 );
               })}
           </select>
 
           {/* HOUR */}
-          <select
-            value={hour}
-            disabled={!day}
-            onChange={(e) => setHour(Number(e.target.value))}
-          >
+          <select value={hour} disabled={!day} onChange={(e) => setHour(Number(e.target.value))}>
             <option value="">Select hour</option>
             {ALL_HOURS.map(h => (
-              <option
-                key={h}
-                value={h}
-                disabled={!availableHours.includes(h)}
-              >
+              <option key={h} value={h} disabled={!availableHours.includes(h)}>
                 {h}:00 {!availableHours.includes(h) ? "(Already booked)" : ""}
               </option>
             ))}
@@ -222,10 +199,7 @@ const Reservation = () => {
             ))}
           </select>
 
-          <button
-            type="submit"
-            disabled={loading || !year || !month || !day || !hour}
-          >
+          <button type="submit" disabled={loading || !year || !month || !day || !hour}>
             {loading ? "Saving..." : "Confirm reservation"}
           </button>
         </form>

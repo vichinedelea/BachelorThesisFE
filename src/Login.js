@@ -15,7 +15,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ❌ OPREȘTE ORICE
     if (!isFormValid) {
       return;
     }

@@ -11,7 +11,6 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  // ✅ VALIDARE REALĂ
   const isFormValid =
     name.trim() !== "" &&
     email.trim() !== "" &&
@@ -20,7 +19,6 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ❌ NU PLEACĂ NICIUN REQUEST
     if (!isFormValid) {
       return;
     }
@@ -28,7 +26,6 @@ const SignUp = () => {
     setIsPending(true);
 
     try {
-      // REGISTER
       const registerResponse = await fetch(
         "https://localhost:7277/api/Users/register",
         {
@@ -45,8 +42,6 @@ const SignUp = () => {
       if (!registerResponse.ok) {
         throw new Error("Register failed");
       }
-
-      // LOGIN AUTOMAT
       const loginResponse = await fetch(
         "https://localhost:7277/api/Users/login",
         {
