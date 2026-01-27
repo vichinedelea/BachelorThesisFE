@@ -3,10 +3,19 @@ import { useNavigate } from "react-router-dom";
 import BackToMyReservationsButton from "./BackToMyReservationsButton";
 import "./Reservation.css";
 
-const monthNames = [
-  "January", "February", "March", "April",
-  "May", "June", "July", "August",
-  "September", "October", "November", "December"
+const MONTHS = [
+  { name: "January", value: 1 },
+  { name: "February", value: 2 },
+  { name: "March", value: 3 },
+  { name: "April", value: 4 },
+  { name: "May", value: 5 },
+  { name: "June", value: 6 },
+  { name: "July", value: 7 },
+  { name: "August", value: 8 },
+  { name: "September", value: 9 },
+  { name: "October", value: 10 },
+  { name: "November", value: 11 },
+  { name: "December", value: 12 },
 ];
 
 const ALL_HOURS = [10, 11, 12, 13, 14, 15, 16];
@@ -24,15 +33,6 @@ const Reservation = () => {
 
   const [availableDays, setAvailableDays] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
-
-  useEffect(() => {
-    setYear("");
-    setMonth("");
-    setDay("");
-    setHour("");
-    setAvailableDays([]);
-    setAvailableHours([]);
-  }, []);
 
   useEffect(() => {
     if (!token) navigate("/logIn");
@@ -65,9 +65,7 @@ const Reservation = () => {
       try {
         const response = await fetch(
           `https://localhost:7277/api/Reservations/availability/${year}/${month}/days`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         if (!response.ok) return setAvailableDays([]);
@@ -89,9 +87,7 @@ const Reservation = () => {
       try {
         const response = await fetch(
           `https://localhost:7277/api/Reservations/availability/${year}/${month}/${day}/hours`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         if (!response.ok) return setAvailableHours([]);
@@ -155,16 +151,28 @@ const Reservation = () => {
           </select>
 
           {/* MONTH */}
-          <select value={month} disabled={!year} onChange={(e) => setMonth(Number(e.target.value))}>
+          <select
+            value={month}
+            disabled={!year}
+            onChange={(e) => setMonth(Number(e.target.value))}
+          >
             <option value="">Select month</option>
-            {monthNames.map((m, i) => (
-              <option key={i} value={i + 1}>{m}</option>
-            ))}
+
+            {MONTHS
+              .filter(m => year === 2026 ? m.value >= 3 : true)
+              .map(m => (
+                <option key={m.value} value={m.value}>
+                  {m.name}
+                </option>
+              ))}
           </select>
 
           {/* DAY (fără weekend) */}
-          <select value={day} disabled={!month || !availableDays.length}
-            onChange={(e) => setDay(Number(e.target.value))}>
+          <select
+            value={day}
+            disabled={!month || !availableDays.length}
+            onChange={(e) => setDay(Number(e.target.value))}
+          >
             <option value="">Select day</option>
 
             {availableDays
@@ -183,8 +191,13 @@ const Reservation = () => {
           </select>
 
           {/* HOUR */}
-          <select value={hour} disabled={!day} onChange={(e) => setHour(Number(e.target.value))}>
+          <select
+            value={hour}
+            disabled={!day}
+            onChange={(e) => setHour(Number(e.target.value))}
+          >
             <option value="">Select hour</option>
+
             {ALL_HOURS.map(h => (
               <option key={h} value={h} disabled={!availableHours.includes(h)}>
                 {h}:00 {!availableHours.includes(h) ? "(Already booked)" : ""}
@@ -199,7 +212,10 @@ const Reservation = () => {
             ))}
           </select>
 
-          <button type="submit" disabled={loading || !year || !month || !day || !hour}>
+          <button
+            type="submit"
+            disabled={loading || !year || !month || !day || !hour}
+          >
             {loading ? "Saving..." : "Confirm reservation"}
           </button>
         </form>

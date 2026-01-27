@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -14,12 +15,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!isFormValid) {
-      return;
-    }
+    if (!isFormValid) return;
 
     setIsPending(true);
+    setError("");
 
     try {
       const response = await fetch(
@@ -34,16 +33,16 @@ const Login = () => {
         }
       );
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error(data.message || "Login failed");
       }
 
-      const data = await response.json();
       localStorage.setItem("token", data.token);
-
       navigate("/myReservations");
-    } catch (error) {
-      alert("Login failed");
+    } catch (err) {
+      setError(err.message);
     } finally {
       setIsPending(false);
     }
@@ -53,7 +52,7 @@ const Login = () => {
     <div className="bg-image">
       <div className="login-wrapper">
         <div className="login-card">
-          <h2>Sign In</h2>
+          <h2>Log In</h2>
 
           <form onSubmit={handleSubmit}>
             <input
@@ -70,10 +69,9 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              type="submit"
-              disabled={isPending || !isFormValid}
-            >
+            {error && <p className="error-text">{error}</p>}
+
+            <button type="submit" disabled={isPending || !isFormValid}>
               {isPending ? "Logging in..." : "Login"}
             </button>
           </form>

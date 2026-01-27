@@ -8,6 +8,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,12 +19,10 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!isFormValid) {
-      return;
-    }
+    if (!isFormValid) return;
 
     setIsPending(true);
+    setError("");
 
     try {
       const registerResponse = await fetch(
@@ -42,6 +41,7 @@ const SignUp = () => {
       if (!registerResponse.ok) {
         throw new Error("Register failed");
       }
+
       const loginResponse = await fetch(
         "https://localhost:7277/api/Users/login",
         {
@@ -54,16 +54,16 @@ const SignUp = () => {
         }
       );
 
+      const loginData = await loginResponse.json();
+
       if (!loginResponse.ok) {
-        throw new Error("Login failed");
+        throw new Error(loginData.message || "Login failed");
       }
 
-      const data = await loginResponse.json();
-      localStorage.setItem("token", data.token);
-
+      localStorage.setItem("token", loginData.token);
       navigate("/myReservations");
     } catch (err) {
-      alert("Sign up failed");
+      setError(err.message);
     } finally {
       setIsPending(false);
     }
@@ -97,10 +97,9 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              type="submit"
-              disabled={isPending || !isFormValid}
-            >
+            {error && <p className="error-text">{error}</p>}
+
+            <button type="submit" disabled={isPending || !isFormValid}>
               {isPending ? "Creating account..." : "Sign Up"}
             </button>
           </form>

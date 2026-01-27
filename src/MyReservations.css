@@ -14,6 +14,7 @@
   border-radius: 18px;
   width: 520px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
 }
 
 .reservations-header {
@@ -43,6 +44,20 @@
   background: #5f2f16;
 }
 
+.delete-btn {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.delete-btn:hover {
+  background: #a93226;
+}
+
 .reservations-list {
   display: flex;
   flex-direction: column;
@@ -59,20 +74,6 @@
   font-size: 14px;
 }
 
-.delete-btn {
-  background: #c0392b;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.delete-btn:hover {
-  background: #a93226;
-}
-
 .empty-text {
   text-align: center;
   color: #6b4a33;
@@ -82,4 +83,79 @@
   text-align: center;
   margin-top: 50px;
   font-size: 18px;
+}
+
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(60, 35, 20, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm-box {
+  background: #fff8eb;
+  padding: 26px 30px;
+  border-radius: 18px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.25s ease;
+}
+
+.confirm-box p {
+  margin: 0;
+  font-size: 16px;
+  color: #5a3e2b;
+  font-family: 'Playfair Display', serif;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.yes-btn {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.yes-btn:hover {
+  background: #a93226;
+}
+
+.no-btn {
+  background: #7a3e1d;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.no-btn:hover {
+  background: #5f2f16;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

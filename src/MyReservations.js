@@ -6,6 +6,9 @@ import "./MyReservations.css";
 const MyReservations = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [reservationToDelete, setReservationToDelete] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,17 +38,25 @@ const MyReservations = () => {
       });
   }, [navigate]);
 
-  const handleDelete = async (id) => {
+  const confirmDelete = async () => {
     const token = localStorage.getItem("token");
 
-    await fetch(`https://localhost:7277/api/Reservations/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await fetch(
+      `https://localhost:7277/api/Reservations/${reservationToDelete}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    setReservations((prev) => prev.filter((r) => r.id !== id));
+    setReservations((prev) =>
+      prev.filter((r) => r.id !== reservationToDelete)
+    );
+
+    setShowConfirm(false);
+    setReservationToDelete(null);
   };
 
   const handleBackHome = () => {
@@ -63,6 +74,7 @@ const MyReservations = () => {
           <h2>My Reservations</h2>
 
           <button
+            type="button"
             className="primary-btn"
             onClick={() => navigate("/reservation")}
           >
@@ -89,8 +101,12 @@ const MyReservations = () => {
                   </div>
 
                   <button
+                    type="button"
                     className="delete-btn"
-                    onClick={() => handleDelete(r.id)}
+                    onClick={() => {
+                      setReservationToDelete(r.id);
+                      setShowConfirm(true);
+                    }}
                   >
                     Delete
                   </button>
@@ -104,6 +120,34 @@ const MyReservations = () => {
           <BackToHomePageButton />
         </div>
       </div>
+
+      {showConfirm && (
+        <div className="confirm-overlay">
+          <div className="confirm-box">
+            <p>Are you sure you want to delete this reservation?</p>
+
+            <div className="confirm-buttons">
+              <button
+                type="button"
+                className="yes-btn"
+                onClick={confirmDelete}
+              >
+                Yes
+              </button>
+              <button
+                type="button"
+                className="no-btn"
+                onClick={() => {
+                  setShowConfirm(false);
+                  setReservationToDelete(null);
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

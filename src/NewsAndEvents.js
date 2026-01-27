@@ -7,7 +7,7 @@ const NewsAndEvents = () => {
         <div className="page-container">
             <div className="text">
                 <h2>News</h2>
-                <p> from April 2025 we will also have cooking as an activity </p>
+                <p> from April 2026 we will also have cooking as an activity </p>
                 <br></br>
                 <h2>Eventes</h2>
                 <dl>
@@ -17,7 +17,7 @@ const NewsAndEvents = () => {
                     <dd>- First Aware will be 35 l of organic apple juice</dd>
 
                     <dt>The autumn festival</dt>
-                    <dd>- 15 - 15 September</dd>
+                    <dd>- 15 September</dd>
                     <dd>- in our location</dd>
                     <dd>- you will be able to buy the last vegetable harvest </dd>
                 </dl>
